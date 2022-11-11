@@ -11,3 +11,8 @@ Start-Process -Verb runAs -FilePath powershell -ArgumentList "-Command","Set-Exe
 ```ps1
 Invoke-RestMethod "https://raw.githubusercontent.com/StrajnarFilip/Windows-Setup/master/Setup-Windows.ps1" | Invoke-Expression
 ```
+
+# Step 3: Execute admin part of script
+```ps1
+Invoke-RestMethod "https://raw.githubusercontent.com/StrajnarFilip/Windows-Setup/master/Execute-ScriptAdmin.ps1" | Invoke-Expression
+```

@@ -1,5 +1,4 @@
-# Allows running all scripts
-Start-Process -Verb runAs -FilePath powershell -ArgumentList "-Command","Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine -Force"
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine -Force
 
 # Windows optional features
 Disable-WindowsOptionalFeature -Online -NoRestart -FeatureName "WorkFolders-Client"
