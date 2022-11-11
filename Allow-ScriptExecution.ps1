@@ -1,0 +1,1 @@
+Start-Process -Verb runAs -FilePath powershell -ArgumentList "-Command","Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope LocalMachine -Force"
