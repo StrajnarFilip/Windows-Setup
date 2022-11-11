@@ -81,4 +81,4 @@ DownloadFile -FileUri $DockerUrl -FileName "docker"
 
 # Rust
 $RustUrl = "https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe"
-DownloadFile -FileUri $RustUrl -FileName "rust"
+DownloadFile -FileUri $RustUrl -FileName "rustup-init"
