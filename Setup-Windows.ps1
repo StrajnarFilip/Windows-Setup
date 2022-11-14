@@ -1,5 +1,7 @@
 # Install scoop
 Start-Job -ScriptBlock { Invoke-RestMethod get.scoop.sh | Invoke-Expression } |  Wait-Job
+# Wait
+Start-Sleep -Seconds 15
 # Install git
 scoop install git
 # Add extras bucket
@@ -70,6 +72,60 @@ scoop install extras/thunderbird
 scoop install extras/sharex
 # Install 7zip
 scoop install 7zip
+
+function Add-RegistryCommand([string]$RegistryBase ,[string]$CommandName, [string]$Executable){
+    New-Item -Path "Registry::${RegistryBase}" -Name $CommandName -Force
+    New-Item -Path "Registry::${RegistryBase}\${CommandName}" -Name "command" -Value $Executable
+}
+
+### Functions to add right click option to background of a folder (blank space on right side of Windows Explorer)
+### or in left side of Windows Explorer.
+
+# For this computer (all accounts)
+function Add-GlobalRightClickOptionFolderBackground([string]$CommandName, [string]$Executable) {
+    $RegistryBase = "HKEY_CLASSES_ROOT\Directory\Background\shell"
+    Add-RegistryCommand -RegistryBase $RegistryBase -CommandName $CommandName -Executable $Executable
+}
+
+# Only for current account
+function Add-UserRightClickOptionFolderBackground([string]$CommandName, [string]$Executable) {
+    $RegistryBase = "HKEY_CURRENT_USER\Software\Classes\directory\Background\shell"
+    Add-RegistryCommand -RegistryBase $RegistryBase -CommandName $CommandName -Executable $Executable
+}
+
+
+### Functions to add right click option to a file. Note: you can use
+### %1 symbol within Executable string to get selected file's path.
+
+# For this computer (all accounts)
+function Add-GlobalRightClickOptionFile([string]$CommandName, [string]$Executable) {
+    $RegistryBase = "HKEY_CLASSES_ROOT\*\shell"
+    Add-RegistryCommand -RegistryBase $RegistryBase -CommandName $CommandName -Executable $Executable
+}
+
+# Only for current account
+function Add-UserRightClickOptionFile([string]$CommandName, [string]$Executable) {
+    $RegistryBase = "HKEY_CURRENT_USER\Software\Classes\*\shell"
+    Add-RegistryCommand -RegistryBase $RegistryBase -CommandName $CommandName -Executable $Executable
+}
+
+### Functions to add right click option to folder on the right side of Windows Explorer
+
+# For this computer (all accounts)
+function Add-GlobalRightClickOptionFolder([string]$CommandName, [string]$Executable) {
+    $RegistryBase = "HKEY_CLASSES_ROOT\Directory\shell"
+    Add-RegistryCommand -RegistryBase $RegistryBase -CommandName $CommandName -Executable $Executable
+}
+
+# Only for current account
+function Add-UserRightClickOptionFolder([string]$CommandName, [string]$Executable) {
+    $RegistryBase = "HKEY_CURRENT_USER\Software\Classes\directory\shell"
+    Add-RegistryCommand -RegistryBase $RegistryBase -CommandName $CommandName -Executable $Executable
+}
+
+Add-UserRightClickOptionFolderBackground -CommandName "Open with Visual Studio Code" -Executable "$((Get-Command -Name "code.cmd").Source) ."
+Add-UserRightClickOptionFolderBackground -CommandName "Open with IntelliJ IDEA" -Executable "$((Get-Command -Name "idea.exe").Source) ."
+Add-UserRightClickOptionFolderBackground -CommandName "Open in Powershell" -Executable "$((Get-Command -Name "pwsh.exe").Source) ."
 
 function DownloadFile([string]$FileUri, [string]$FileName) {
     Invoke-WebRequest -Uri $FileUri -OutFile "${FileName}.exe"
