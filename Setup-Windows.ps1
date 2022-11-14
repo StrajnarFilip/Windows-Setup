@@ -125,7 +125,7 @@ function Add-UserRightClickOptionFolder([string]$CommandName, [string]$Executabl
 
 Add-UserRightClickOptionFolderBackground -CommandName "Open with Visual Studio Code" -Executable "$((Get-Command -Name "code.cmd").Source) ."
 Add-UserRightClickOptionFolderBackground -CommandName "Open with IntelliJ IDEA" -Executable "$((Get-Command -Name "idea.exe").Source) ."
-Add-UserRightClickOptionFolderBackground -CommandName "Open in Powershell" -Executable "$((Get-Command -Name "pwsh.exe").Source) ."
+Add-UserRightClickOptionFolderBackground -CommandName "Open in Powershell" -Executable "$((Get-Command -Name "pwsh.exe").Source) -WorkingDirectory ."
 
 function DownloadFile([string]$FileUri, [string]$FileName) {
     Invoke-WebRequest -Uri $FileUri -OutFile "${FileName}.exe"
