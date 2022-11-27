@@ -72,6 +72,8 @@ scoop install extras/thunderbird
 scoop install extras/sharex
 # Install 7zip
 scoop install 7zip
+# Install Elixir
+scoop install elixir
 
 function Add-RegistryCommand([string]$RegistryBase ,[string]$CommandName, [string]$Executable){
     New-Item -Path "Registry::${RegistryBase}" -Name $CommandName -Force
