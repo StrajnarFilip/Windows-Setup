@@ -72,6 +72,8 @@ scoop install extras/thunderbird
 scoop install extras/sharex
 # Install 7zip
 scoop install 7zip
+# Install Erlang, dependency of Elixir
+scoop install erlang
 # Install Elixir
 scoop install elixir
 
